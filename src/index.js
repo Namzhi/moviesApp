@@ -1,17 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+/* eslint-disable no-useless-concat */
+class SwapiService {
+  _apiBase = 'https://swapi.dev/api'
+  async getResource(url) {
+    const res = await fetch(this._apiBase + url)
+    if (!res.ok) {
+      throw new Error(`could not found ${this._apiBase}${url}` + `, received ${res.status}`)
+    }
+    // console.log(res.json())
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    return await res.json()
+  }
+  async getAllPeople() {
+    return this.getResource('/people/')
+  }
+  getPerson(id) {
+    return this.getResource(`/people/${id}`)
+  }
+  async getAllPlanets() {
+    const res = this.getResource('/starships/')
+    return res
+  }
+  getStarship(id) {
+    return this.getResource(`/startships/${id}`)
+  }
+}
+const swapi = new SwapiService()
+swapi.getAllPeople().then(body => {
+  console.log(body)
+})
