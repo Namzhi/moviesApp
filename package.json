@@ -22,7 +22,7 @@
     "prepare": "husky",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "format": "prettier"
+    "format": "prettier . --write"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +60,7 @@
     "globals": "^15.9.0",
     "husky": "^9.1.4",
     "lint-staged": "^15.2.9",
+    "lodash": "^4.17.21",
     "prettier": "^3.3.3",
     "react-detect-offline": "^2.4.5"
   }

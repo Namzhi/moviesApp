@@ -1,54 +1,40 @@
 import {Component} from 'react'
 
-// import PropTypes from 'prop-types'
 import FilmList from '../film-list'
-// import {Flex} from 'antd'
+import Footer from '../footer'
 import '../index.css'
+import Search from '../search'
 export default class App extends Component {
-  // state = {loading: true}
+  state = {
+    page: 1,
+    search: '',
+    value: '',
+  }
 
-  async getResource(url) {
-    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${url}`, {
-      method: 'GET',
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Yjk1Y2M4MmE3MGU2ZDc5MjI0OWMwYTlhZTZjZGQyZSIsIm5iZiI6MTcyMzk4Mzg0OS4xNTA3MzIsInN1YiI6IjY2YzFiZjE0NGVlYjNlMmI0NGQ5ZjQxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4KNETsvMq-f0yQpwi0A7qIgp_JWxPBaA494oAAdnXp4',
-        accept: 'application/json',
-      },
+  handlePage = pageNow => {
+    // return this.filmList.updateFilm(page)
+    // console.log(this.state.page)
+    this.setState({
+      page: pageNow,
     })
-    return await response.json()
   }
-
-  async getFilms() {
-    const films = await this.getResource('return')
-    // console.log(films.results)
-    return films.results.map(this._transformFilm)
+  // delayedValue = debounce(value => value, 1500)
+  handleSearch = e => {
+    this.setState({
+      value: e.target.value,
+      page: 1,
+    })
   }
-  async getFilm() {
-    const film = await this.getResource('return')
-    return this._transformFilm(film)
-  }
-  _transformFilm(film) {
-    return {
-      id: film.id,
-      title: film.title,
-      img: film.backdrop_path === null ? null : `https://image.tmdb.org/t/p/w500${film.backdrop_path}`,
-      overview: film.overview,
-      release_date: film.release_date,
-    }
-  }
-  // checkLoad() {
-  //   this.setState(() => {
-  //     return {loading: false}
-  //   })
-  // }
   render() {
-    // this.getFilms()
-    console.log(this.checkLoad)
+    // console.log(this.delayedValue(this.state.value))
     return (
-      <div className="wrapper">
-        <FilmList getFilms={this.getFilms} />
-      </div>
+      <>
+        <Search handleSearch={this.handleSearch} value={this.state.value} />
+
+        <FilmList page={this.state.page} value={this.state.value} />
+
+        <Footer handlePage={this.handlePage} page={this.state.page} />
+      </>
     )
   }
 }
