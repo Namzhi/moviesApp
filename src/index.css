@@ -3,8 +3,8 @@
   height: 1147px;
   width: 1010px;
 }
-.list {
-  display: flex;
+/* .list { */
+/* display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
@@ -13,12 +13,17 @@ li::marker {
 }
 .li-item {
   display: block;
-  width: 200px;
-}
+  width: 30%;
+} */
 
 img {
-  width: 200px;
+  width: 183px;
+  height: 281px;
 }
-.ul-wrapper {
-  height: 100%;
-}
+/* .ul-wrapper {
+  width: 1010px;
+  height: 1147px;
+  left: 215px;
+  gap: 0px;
+  opacity: 0px;
+} */

@@ -1,3 +1,3 @@
-import DataResourse from './data-resource'
+import DataResource from './data-resource'
 
-export default DataResourse
+export default DataResource
