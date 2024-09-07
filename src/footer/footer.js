@@ -8,10 +8,13 @@ export default class Footer extends Component {
   dataResourse = new DataResourse()
   render() {
     const {handlePage, page} = this.props
-    // console.log(this.props)
-    // handlePage()
-    // console.log(this.filmList.updateFilm(2))
-    return <Pagination onChange={page => handlePage(page)} current={page} total={50} />
-    // return <Pagination onChange={page => console.log(page)} total={50} />
+    return (
+      <Pagination
+        onChange={page => handlePage(page)}
+        current={page}
+        total={50}
+        style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
+      />
+    )
   }
 }

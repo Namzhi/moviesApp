@@ -1,29 +1,8 @@
-/* import { Flex } from "antd" */
 .wrapper {
   height: 1147px;
   width: 1010px;
+  background: white;
 }
-/* .list { */
-/* display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+body {
+  background: #f7f7f7;
 }
-li::marker {
-  content: none;
-}
-.li-item {
-  display: block;
-  width: 30%;
-} */
-
-img {
-  width: 183px;
-  height: 281px;
-}
-/* .ul-wrapper {
-  width: 1010px;
-  height: 1147px;
-  left: 215px;
-  gap: 0px;
-  opacity: 0px;
-} */

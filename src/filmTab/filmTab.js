@@ -20,11 +20,11 @@ export default class FilmTab extends Component {
     console.log(this.props)
     const {session_id} = this.props
     return (
-      <>
+      <div style={{width: 938, marginLeft: 'auto', marginRight: 'auto'}}>
         <Search handleSearch={this.handleSearch} value={this.state.value} />
         <FilmList page={this.state.page} value={this.state.value} session_id={session_id} />
         <Footer handlePage={this.handlePage} page={this.state.page} />
-      </>
+      </div>
     )
   }
 }

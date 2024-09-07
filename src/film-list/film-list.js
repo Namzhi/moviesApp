@@ -3,12 +3,9 @@ import {Offline} from 'react-detect-offline'
 import {Alert, Spin, List} from 'antd'
 import {debounce} from 'lodash'
 
-// import {GenreDataConsumer} from '../app/genres-data-context'
 import Film from '../film'
 import DataResource from '../data-resource'
-// import {GenresData} from '../genres-data/genres-data'
-// import {DataResourceConsumer} from '../data-resource-context'
-import {GenreDataConsumer} from '../app/genres-data-context'
+import {GenreDataConsumer} from '../genres-data-context'
 export default class FilmList extends Component {
   state = {
     films: null,
@@ -23,7 +20,13 @@ export default class FilmList extends Component {
   debouncedUpdateFilm = debounce((url, page) => {
     this.updateFilm(url, page)
   }, 500)
-
+  componentDidMount() {
+    this.dataResource
+      .getPopular()
+      .then(res => res.results.map(this.dataResource._transformFilm))
+      .then(this.onFilmLoaded)
+      .catch(this.onError)
+  }
   componentDidUpdate(prevProps) {
     const {page, value} = this.props
     if (page !== prevProps.page) {
@@ -56,17 +59,15 @@ export default class FilmList extends Component {
 
   render() {
     const {films, loading, error} = this.state
-    const {page, value, session_id} = this.props
+    const {value, session_id} = this.props
     if (!films) {
       return null
     }
-    // this.getGenre()
     const filmList = films.map(item => {
       const {title, id, overview, release_date, img, genre_ids, vote_average} = item
       return (
         <GenreDataConsumer key={id}>
           {getGenre => {
-            // console.log(getGenre(28))
             return (
               <>
                 <Film
@@ -80,7 +81,6 @@ export default class FilmList extends Component {
                   genres={getGenre(genre_ids)}
                   vote_average={vote_average}
                 />
-                {/* <GenresData /> */}
               </>
             )
           }}
@@ -97,24 +97,33 @@ export default class FilmList extends Component {
     ) : (
       <List
         itemLayout="vertical"
-        grid={{column: 2, gutter: 32}}
+        grid={{column: 2, gutter: 36}}
         dataSource={filmList}
-        renderItem={item => <List.Item>{item} </List.Item>}
+        // style={{margin: 0}}
+        renderItem={item => (
+          <List.Item
+            style={{
+              height: 279,
+              boxShadow: '0.1rem .2rem .6rem 0.2rem hsla(1, 1%, 70%, 0.300)',
+
+              padding: window.innerWidth >= 768 ? 0 : '.5rem',
+            }}
+          >
+            {item}
+          </List.Item>
+        )}
       ></List>
     )
-    console.log(page)
 
     return (
-      <div className="ul-wrapper">
+      <
+        // style={{marginLeft: 'auto', marginRight: 'auto'}}
+      >
         {errorMessage}
-        {/* <Online>Only shown when you're online</Online> */}
         <Offline>Only shown offline (surprise!)</Offline>
         {spinner}
-        {/* {genres} */}
         {content}
-
-        {/* <Film /> */}
-      </div>
+      </>
     )
   }
 }

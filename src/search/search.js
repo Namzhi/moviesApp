@@ -8,9 +8,10 @@ export default class Search extends Component {
   filmList = new FilmList()
   render() {
     const {handleSearch, value} = this.props
-    // console.log(handleSearch)
-    // handleSearch = debounce(handleSearch, 1000)
-    console.log(this.props.value)
-    return <Input placeholder="Поиск фильмов" onChange={handleSearch} value={value}></Input>
+    return (
+      <div className="input" style={{marginTop: 3, marginBottom: '34px'}}>
+        <Input placeholder="Type to search..." onChange={handleSearch} value={value}></Input>
+      </div>
+    )
   }
 }

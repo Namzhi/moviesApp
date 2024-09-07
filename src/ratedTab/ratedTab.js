@@ -1,17 +1,17 @@
 import {Component} from 'react'
-import {List} from 'antd'
+import {List, Pagination} from 'antd'
 
 import DataResource from '../data-resource'
 import Film from '../film'
-import {GenreDataConsumer} from '../app/genres-data-context'
+import {GenreDataConsumer} from '../genres-data-context'
 export default class RatedTab extends Component {
   dataResource = new DataResource()
   state = {
     films: [],
+    page: 1,
   }
   componentDidMount() {
     this.dataResource.getRated(this.props.session_id).then(res => {
-      console.log(res)
       if (res.results) {
         this.setState({films: res.results})
       } else {
@@ -22,7 +22,6 @@ export default class RatedTab extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.activeKey !== prevProps.activeKey) {
       this.dataResource.getRated(this.props.session_id).then(res => {
-        console.log(res.results)
         if (res.results) {
           this.setState({films: res.results})
         } else {
@@ -31,14 +30,13 @@ export default class RatedTab extends Component {
       })
     }
   }
+
   render() {
-    console.log(this.props)
     let array = this.state.films
-    console.log(array)
     let filmList = []
     try {
       filmList = array.map(item => {
-        const {title, id, overview, release_date, poster_path, rating, genre_ids} = item
+        const {title, id, overview, release_date, poster_path, rating, genre_ids, vote_average} = item
         return (
           <GenreDataConsumer key={id}>
             {getGenre => {
@@ -53,6 +51,7 @@ export default class RatedTab extends Component {
                   session_id={this.props.session_id}
                   rating={rating}
                   genres={getGenre(genre_ids)}
+                  vote_average={vote_average}
                 />
               )
             }}
@@ -62,13 +61,37 @@ export default class RatedTab extends Component {
     } catch {
       filmList = []
     }
+
     return (
-      <List
-        itemLayout="vertical"
-        grid={{column: 2, gutter: 32}}
-        dataSource={filmList}
-        renderItem={item => <List.Item>{item} </List.Item>}
-      ></List>
+      <div style={{width: 938, marginLeft: 'auto', marginRight: 'auto'}}>
+        <List
+          itemLayout="vertical"
+          grid={{column: 2, gutter: 36}}
+          dataSource={filmList}
+          renderItem={item => (
+            <List.Item
+              style={{
+                boxShadow: '0.1rem .2rem .6rem 0.2rem hsla(1, 1%, 70%, 0.300)',
+
+                padding: window.innerWidth >= 768 ? 0 : '.5rem',
+              }}
+            >
+              {item}
+            </List.Item>
+          )}
+        ></List>
+        {/* <List
+          itemLayout="vertical"
+          grid={{column: 2, gutter: 32}}
+          dataSource={filmList}
+          renderItem={item => <List.Item>{item}</List.Item>}
+        > */}
+        <Pagination
+          current={this.state.page}
+          style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
+        />
+        {/* </List> */}
+      </div>
     )
   }
 }
