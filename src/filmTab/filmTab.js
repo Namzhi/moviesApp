@@ -17,7 +17,6 @@ export default class FilmTab extends Component {
     })
   }
   render() {
-    console.log(this.props)
     const {session_id} = this.props
     return (
       <div className="filmTab">

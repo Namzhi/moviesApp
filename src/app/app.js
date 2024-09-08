@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Tabs} from 'antd'
+import {Tabs, Alert} from 'antd'
 
 import '../index.css'
 
@@ -16,6 +16,7 @@ export default class App extends Component {
     search: '',
     value: '',
     tab: 1,
+    hasError: false,
   }
   dataResource = new DataResource()
   filmList = new FilmList()
@@ -39,7 +40,11 @@ export default class App extends Component {
     })
     this.dataResource.getGenres().then(res => this.setState({genres: res.genres}))
   }
-
+  componentDidCatch() {
+    this.setState({
+      hasError: true,
+    })
+  }
   handleSearch = e => {
     this.setState({
       value: e.target.value,
@@ -59,6 +64,9 @@ export default class App extends Component {
     this.items[1].children = <RatedTab session_id={this.state.session} activeKey={activeKey} />
   }
   render() {
+    if (this.state.hasError) {
+      return <Alert message="Error" type="error"></Alert>
+    }
     return (
       <DataResourceProvider value={this.dataResource}>
         <GenreDataProvider value={this.getGenre}>

@@ -21,7 +21,6 @@ export default class DataResource extends Component {
   }
 
   async rateFilm(movie, rating, guest_session_id) {
-    console.log(movie, rating, guest_session_id)
     const options = {
       method: 'POST',
       headers: {
@@ -69,7 +68,6 @@ export default class DataResource extends Component {
   }
 
   _transformFilm(film) {
-    // console.log(film)
     return {
       id: film.id,
       title: film.title,

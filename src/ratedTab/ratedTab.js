@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {List, Pagination} from 'antd'
+import {List, Pagination, Alert} from 'antd'
 
 import DataResource from '../data-resource'
 import Film from '../film'
@@ -9,6 +9,7 @@ export default class RatedTab extends Component {
   state = {
     films: [],
     page: 1,
+    hasError: false,
   }
   componentDidMount() {
     this.dataResource.getRated(this.props.session_id).then(res => {
@@ -30,7 +31,11 @@ export default class RatedTab extends Component {
       })
     }
   }
-
+  componentDidCatch() {
+    this.setState({
+      hasError: true,
+    })
+  }
   render() {
     let array = this.state.films
     let filmList = []
@@ -61,12 +66,11 @@ export default class RatedTab extends Component {
     } catch {
       filmList = []
     }
-
+    if (this.state.hasError) {
+      return <Alert message="Error" type="error"></Alert>
+    }
     return (
-      <div
-        className="filmTab"
-        // style={{width: 938, marginLeft: 'auto', marginRight: 'auto'}}
-      >
+      <div className="filmTab">
         <List
           className="film-list__list-element"
           itemLayout={'vertical'}
@@ -75,11 +79,7 @@ export default class RatedTab extends Component {
           renderItem={item => <List.Item>{item}</List.Item>}
         ></List>
 
-        <Pagination
-          className="footer__pagination"
-          current={this.state.page}
-          // style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
-        />
+        <Pagination className="footer__pagination" current={this.state.page} />
       </div>
     )
   }

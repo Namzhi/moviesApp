@@ -41,7 +41,6 @@ const FilmView = ({film}) => {
     const color = value < 4 ? ' #E90000' : value < 5 ? '#E97E00' : value < 7 ? '#E9D100' : '#66E900'
     return color
   }
-  // const overviewHeight = '20px'
   return (
     <Fragment>
       <Flex className="film__container">
@@ -60,43 +59,13 @@ const FilmView = ({film}) => {
               strokeColor={rateColor()}
             />
           </Flex>
-          <Flex
-            vertical
-            // style={{position: 'absolute'}}
-          >
-            <p
-              className="film__date"
-              // style={{
-              //   height: 30,
-              //   fontFamily: 'Inter',
-              //   fontSize: 12,
-              //   fontWeight: 400,
-
-              //   textAlign: 'left',
-              //   margin: 0,
-              //   marginBottom: 4,
-              //   color: '#827E7E',
-              // }}
-            >
-              {date}
-            </p>
-            <Flex
-              gap="4px 0"
-              wrap
-              className="film__genres"
-              // style={{width: '100%'}}
-            >
+          <Flex vertical>
+            <p className="film__date">{date}</p>
+            <Flex gap="4px 0" wrap className="film__genres">
               {genreList}
             </Flex>
 
-            <p
-              className="film__overview"
-              // style={{
-              //   WebkitLineClamp: `${genreList.length > 3 ? '6' : '7'}` /* start showing ellipsis when 3rd line is reached */,
-              // }}
-            >
-              {overview}
-            </p>
+            <p className="film__overview">{overview}</p>
           </Flex>
           <Rate
             className="film__rate"

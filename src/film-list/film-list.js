@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Offline} from 'react-detect-offline'
-import {Alert, Spin, List} from 'antd'
+import {Alert, Spin, List, Empty} from 'antd'
 import {debounce} from 'lodash'
 
 import Film from '../film'
@@ -13,6 +13,7 @@ export default class FilmList extends Component {
     page: 1,
     error: false,
     genres: null,
+    hasError: false,
   }
 
   dataResource = new DataResource()
@@ -36,7 +37,11 @@ export default class FilmList extends Component {
       this.debouncedUpdateFilm(value, page)
     }
   }
-
+  componentDidCatch() {
+    this.setState({
+      hasError: true,
+    })
+  }
   onFilmLoaded = films => {
     this.setState({
       films,
@@ -90,10 +95,14 @@ export default class FilmList extends Component {
     const hasData = !(loading || error)
     const errorMessage = error ? <Alert message="Error" type="error" /> : null
 
-    const spinner = loading ? <Spin size="large" /> : null
-    console.log(window.innerWidth)
+    const spinner = loading ? (
+      <div className="spinner">
+        {' '}
+        <Spin size="large" />
+      </div>
+    ) : null
     const content = !hasData ? null : filmList.length === 0 && value !== '' ? (
-      'нет результатов'
+      <Empty description={'Films not found'} image={Empty.PRESENTED_IMAGE_SIMPLE} />
     ) : (
       <List
         className="film-list__list-element"
@@ -103,11 +112,15 @@ export default class FilmList extends Component {
         renderItem={item => <List.Item>{item}</List.Item>}
       ></List>
     )
-
+    if (this.state.hasError) {
+      return <Alert message="Error with films' list" type="error"></Alert>
+    }
     return (
       <>
         {errorMessage}
-        <Offline>Only shown offline (surprise!)</Offline>
+        <Offline>
+          <Alert message="you are offline" type="warning" />{' '}
+        </Offline>
         {spinner}
         {content}
       </>
