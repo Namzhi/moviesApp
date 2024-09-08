@@ -9,7 +9,7 @@ export default class Search extends Component {
   render() {
     const {handleSearch, value} = this.props
     return (
-      <div className="input" style={{marginTop: 3, marginBottom: '34px'}}>
+      <div className="search__input">
         <Input placeholder="Type to search..." onChange={handleSearch} value={value}></Input>
       </div>
     )

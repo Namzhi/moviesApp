@@ -68,7 +68,7 @@ export default class App extends Component {
             items={this.items}
             centered
             size="large"
-            style={{width: 1010, height: 1147, marginLeft: 'auto', marginRight: 'auto', background: 'white'}}
+            className="wrapper"
           />
         </GenreDataProvider>
       </DataResourceProvider>

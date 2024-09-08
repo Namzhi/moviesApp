@@ -100,7 +100,10 @@ export default class DataResource extends Component {
     return {
       id: film.id,
       title: film.title,
-      img: film.poster_path === null ? null : `https://image.tmdb.org/t/p/w500${film.poster_path}`,
+      img:
+        film.poster_path === null
+          ? 'https://static.displate.com/857x1200/displate/2022-04-15/7422bfe15b3ea7b5933dffd896e9c7f9_46003a1b7353dc7b5a02949bd074432a.jpg'
+          : `https://image.tmdb.org/t/p/w500${film.poster_path}`,
       overview: film.overview,
       release_date: film.release_date,
       genre_ids: film.genre_ids,

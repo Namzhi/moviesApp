@@ -8,13 +8,6 @@ export default class Footer extends Component {
   dataResourse = new DataResourse()
   render() {
     const {handlePage, page} = this.props
-    return (
-      <Pagination
-        onChange={page => handlePage(page)}
-        current={page}
-        total={50}
-        style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
-      />
-    )
+    return <Pagination className="footer__pagination" onChange={page => handlePage(page)} current={page} total={50} />
   }
 }

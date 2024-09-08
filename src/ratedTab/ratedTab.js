@@ -66,7 +66,7 @@ export default class RatedTab extends Component {
       <div style={{width: 938, marginLeft: 'auto', marginRight: 'auto'}}>
         <List
           itemLayout="vertical"
-          grid={{column: 2, gutter: 36}}
+          grid={window.innerWidth >= 768 ? {column: 2, gutter: 36} : {column: 1}}
           dataSource={filmList}
           renderItem={item => (
             <List.Item
@@ -80,17 +80,11 @@ export default class RatedTab extends Component {
             </List.Item>
           )}
         ></List>
-        {/* <List
-          itemLayout="vertical"
-          grid={{column: 2, gutter: 32}}
-          dataSource={filmList}
-          renderItem={item => <List.Item>{item}</List.Item>}
-        > */}
+
         <Pagination
           current={this.state.page}
           style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
         />
-        {/* </List> */}
       </div>
     )
   }
