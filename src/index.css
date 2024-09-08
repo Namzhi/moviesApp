@@ -6,8 +6,9 @@ body {
   height: 91px;
   margin: 6px 13px 10px 10px;
 }
-.wrapper {
+.app__wrapper {
   min-width: 420px;
+  margin: 0 auto;
   background: white;
 }
 .film__title-progress {
@@ -147,7 +148,8 @@ body {
   }
   .film__container {
     /* min-width: 200px; */
-    margin: 0;
+    margin: 0 auto;
+    /* margin: 0; */
     max-width: 370px;
     height: 279px;
   }
@@ -212,9 +214,13 @@ body {
   }
 }
 @media (min-width: 1010px) {
-  .filmTab {
+  .app__wrapper {
     width: 1010px;
+    background: white;
   }
+  /* .filmTab {
+    width: 1010px;
+  } */
   .search__input {
     width: 938px;
     height: 40px;

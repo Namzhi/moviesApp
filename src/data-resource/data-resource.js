@@ -3,29 +3,20 @@ export default class DataResource extends Component {
   state = {
     genres: null,
   }
+  options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Yjk1Y2M4MmE3MGU2ZDc5MjI0OWMwYTlhZTZjZGQyZSIsIm5iZiI6MTcyNTQzODU1MS4wNjAyNDQsInN1YiI6IjY2YzFiZjE0NGVlYjNlMmI0NGQ5ZjQxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3Brr00rH5k0t-DFK8WE38rNEEWeM1_fDnDZHWDmE77o',
+    },
+  }
   async auth() {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Yjk1Y2M4MmE3MGU2ZDc5MjI0OWMwYTlhZTZjZGQyZSIsIm5iZiI6MTcyNTQzODU1MS4wNjAyNDQsInN1YiI6IjY2YzFiZjE0NGVlYjNlMmI0NGQ5ZjQxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3Brr00rH5k0t-DFK8WE38rNEEWeM1_fDnDZHWDmE77o',
-      },
-    }
-    const response = await fetch('https://api.themoviedb.org/3/authentication/guest_session/new', options)
+    const response = await fetch('https://api.themoviedb.org/3/authentication/guest_session/new', this.options)
     return await response.json()
   }
   async getGenres() {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Yjk1Y2M4MmE3MGU2ZDc5MjI0OWMwYTlhZTZjZGQyZSIsIm5iZiI6MTcyNTQzODU1MS4wNjAyNDQsInN1YiI6IjY2YzFiZjE0NGVlYjNlMmI0NGQ5ZjQxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3Brr00rH5k0t-DFK8WE38rNEEWeM1_fDnDZHWDmE77o',
-      },
-    }
-
-    const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
+    const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', this.options)
     return await response.json()
   }
 
@@ -49,32 +40,14 @@ export default class DataResource extends Component {
     return await response.json()
   }
   async getRated(guest_session) {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Yjk1Y2M4MmE3MGU2ZDc5MjI0OWMwYTlhZTZjZGQyZSIsIm5iZiI6MTcyNTQzODU1MS4wNjAyNDQsInN1YiI6IjY2YzFiZjE0NGVlYjNlMmI0NGQ5ZjQxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3Brr00rH5k0t-DFK8WE38rNEEWeM1_fDnDZHWDmE77o',
-      },
-    }
-
     const response = await fetch(
       `https://api.themoviedb.org/3/guest_session/${guest_session}/rated/movies?language=en-US&page=1&sort_by=created_at.asc`,
-      options
+      this.options
     )
     return await response.json()
   }
   async getPopular() {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Yjk1Y2M4MmE3MGU2ZDc5MjI0OWMwYTlhZTZjZGQyZSIsIm5iZiI6MTcyNTczMDkzNC4wNTQ0NDUsInN1YiI6IjY2YzFiZjE0NGVlYjNlMmI0NGQ5ZjQxMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uacGn3n6_Fil8ykbpIGo43gF1bx8P8ERyOaf112gQls',
-      },
-    }
-
-    const response = fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', options)
+    const response = fetch('https://api.themoviedb.org/3/movie/popular?language=en-US&page=1', this.options)
     return (await response).json()
   }
   async getResource(url, page) {

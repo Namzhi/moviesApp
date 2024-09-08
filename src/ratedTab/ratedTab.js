@@ -63,27 +63,22 @@ export default class RatedTab extends Component {
     }
 
     return (
-      <div style={{width: 938, marginLeft: 'auto', marginRight: 'auto'}}>
+      <div
+        className="filmTab"
+        // style={{width: 938, marginLeft: 'auto', marginRight: 'auto'}}
+      >
         <List
-          itemLayout="vertical"
-          grid={window.innerWidth >= 768 ? {column: 2, gutter: 36} : {column: 1}}
+          className="film-list__list-element"
+          itemLayout={'vertical'}
+          grid={{gutter: 36, column: 2, md: 2, sm: 1, xs: 1}}
           dataSource={filmList}
-          renderItem={item => (
-            <List.Item
-              style={{
-                boxShadow: '0.1rem .2rem .6rem 0.2rem hsla(1, 1%, 70%, 0.300)',
-
-                padding: window.innerWidth >= 768 ? 0 : '.5rem',
-              }}
-            >
-              {item}
-            </List.Item>
-          )}
+          renderItem={item => <List.Item>{item}</List.Item>}
         ></List>
 
         <Pagination
+          className="footer__pagination"
           current={this.state.page}
-          style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
+          // style={{width: 'fit-content', marginTop: '20px', marginLeft: 'auto', marginRight: 'auto'}}
         />
       </div>
     )
